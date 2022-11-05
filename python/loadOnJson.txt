@@ -1,0 +1,30 @@
+import os
+
+TAB = '    '
+DIR_FILE_READER = 'uploads/'
+PATH_FILE_WRITER = 'jsons/file.json'
+
+if len(os.listdir(DIR_FILE_READER)) > 0:
+    filename = os.listdir(DIR_FILE_READER)[0]
+    fileInp = open(DIR_FILE_READER + filename, 'r')
+    fileOut = open(PATH_FILE_WRITER, 'w')
+
+    fileOut.write('{\n')
+    for i,line in enumerate(fileInp.readlines()):
+        line = '\''.join(line.split("\""))
+        if line[-1] == '\n':
+            line = line[:-1]
+        line = "&nbsp".join(line.split(' '))
+        fileOut.write("\t\"line_" + str(i + 1) + "\": " + "\"" + line + "\",\n")
+
+    fileOut.write("\t\"x\": \"\"\n}")
+    fileInp.close()
+    fileOut.close()
+
+    while len(os.listdir(DIR_FILE_READER)) > 0:
+        os.system('rm - r ' + DIR_FILE_READER + os.listdir(DIR_FILE_READER)[0])
+
+else:
+    fileOut = open(PATH_FILE_WRITER, 'w')
+    file.write('const codeLines = null')
+    file.close()

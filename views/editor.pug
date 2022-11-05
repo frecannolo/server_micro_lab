@@ -1,0 +1,26 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title Text editor
+        link(rel='stylesheet', href='/stylesheets/styleEditor.css')
+        script(src="https://code.jquery.com/jquery-3.6.1.min.js")
+
+    body
+        form(action='/session/interface', method='post')
+            input#a(type='submit', value='interfaccia dei motori')
+        div
+            div#editor
+                each line in arr
+                    div.line
+                        p.nLine
+                        div.codeLine #{line}
+                        input.code(type='text')
+
+            form(method='post', action='/session/editor', enctype='multipart/form-data')
+                input.butt(onclick='setCodeLine(lineSelected)', name='runOrDownload', type='submit', style='color: forestgreen', value='RUN')
+                input.butt(onclick='setCodeLine(lineSelected); load()', name='runOrDownload', type='submit', style='color: red', value='DOWNLOAD')
+                input#fileDaCaricare(type='file', onchange='fileUploaded()', name='fileDaInput')
+                input.butt(onclick='uploadFile()', type='button' name='runOrDownload', style='color: blue', value='CARICA UN FILE')
+
+    script(type='text/javascript', src='/javascripts/editor.js')
